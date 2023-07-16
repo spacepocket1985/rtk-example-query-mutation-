@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { studentsApi } from '../services/students'
+import { inactiveStudentFnc } from '../helpers/inactiveStudents'
 
 import { createAsyncThunk, createEntityAdapter, createApi, fetchBaseQuery } from "@reduxjs/toolkit";
 import axios from "axios";
@@ -8,21 +9,21 @@ import axios from "axios";
 export const fetchUserById = createAsyncThunk(
   'students/fetchUserById',
   async (filter) => {
-    const response = await axios.get(`http://localhost:3005/boards/${filter}`);
+    console.log(filter);
+    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL_LOCAL}/boards/getBoardsFiltered?filter=${filter}`);
     return response.data;
   }
 );
 
-const usersAdapter = createEntityAdapter();
+export const fetchInactiveBoards = createAsyncThunk(
+  'students/fetchInactiveBoards',
+  async (days) => {
+    console.log(days);
+    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL_LOCAL}/boards/inactive/${days}`);
+    return response.data;
+  }
+);
 
-
-// const initialState = {
-//   javaScript: [],
-//   frontEnd: [],
-//   backEnd: [],
-//   checkListJavaScript: [],
-//   fullStack: [],
-// };
 
 const initialState = {
   loadingStatus: 'idle',
@@ -63,29 +64,45 @@ export const studentsSlice = createSlice({
       }
       Object.assign(state, { ...state, searcherData: { ...newObj } })
     },
+    inactiveStudents: (state, action) => {
+      const s = { ...state };
+      const newObj = {
+        javaScript: [],
+        frontEnd: [],
+        backEnd: [],
+        checkListJavaScript: [],
+        fullStack: [],
+        admin: [],
+      };
+      for (const key in s) {
+        console.log(key);
+        key !== "loadingStatus" && key !== "error" && key !== "searcherData" && s[key].forEach(item => {
+          if (inactiveStudentFnc(item.dateLastActivity, action.payload)) {
+            newObj[key].push({ ...item })
+          }
+        })
+      }
+      Object.assign(state, { ...state, searcherData: { ...newObj } })
+    },
   },
   extraReducers: (builder) => {
     builder
-      // Вызывается прямо перед выполнением запроса
       .addCase(fetchUserById.pending, (state) => {
         state.loadingStatus = 'loading';
         state.error = null;
       })
-      // Вызывается в том случае если запрос успешно выполнился
       .addCase(fetchUserById.fulfilled, (state, action) => {
         state.loadingStatus = 'idle';
         state.error = null;
         Object.assign(state, action.payload, { searcherData: action.payload })
       })
-      // Вызывается в случае ошибки
       .addCase(fetchUserById.rejected, (state, action) => {
         state.loadingStatus = 'failed';
-        // https://redux-toolkit.js.org/api/createAsyncThunk#handling-thunk-errors
         state.error = action.error;
-      });
+      })
   },
 });
 
-export const { searchStudents } = studentsSlice.actions;
+export const { searchStudents, inactiveStudents } = studentsSlice.actions;
 
 export default studentsSlice.reducer;

@@ -1,15 +1,15 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-export const datesApi = createApi({
-  reducerPath: "datesApi",
+export const statisticsApi = createApi({
+  reducerPath: "statisticsApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `${process.env.REACT_APP_SERVER_URL_LOCAL}/`,
   }),
   endpoints: (builder) => ({
-    getDates: builder.query({
+    getStatistics: builder.query({
       query: () => {
         return {
-          url: `dates`,
+          url: `boards/statistics`,
           method: "GET",
         };
       },
@@ -18,5 +18,5 @@ export const datesApi = createApi({
 });
 
 export const {
-  useGetDatesQuery,
-} = datesApi;
+  useGetStatisticsQuery,
+} = statisticsApi;

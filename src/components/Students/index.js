@@ -7,7 +7,7 @@ import { filterStudents } from "../../helpers/filterStudents";
 import { fetchUserById } from '../../redux/studentsSlice'
 
 const items = (data) => {
-    const { javaScript, backEnd, checkListJavaScript, frontEnd, fullStack } = filterStudents(data);
+    const { javaScript, backEnd, checkListJavaScript, frontEnd, fullStack, admin } = filterStudents(data);
     return [
         {
             key: '1',
@@ -33,6 +33,11 @@ const items = (data) => {
             key: '5',
             label: `Full stack (${fullStack.length})`,
             children: <TableStudents data={fullStack} />,
+        },
+        {
+            key: '6',
+            label: `Admin (${admin.length})`,
+            children: <TableStudents data={admin} />,
         },
     ];
 }

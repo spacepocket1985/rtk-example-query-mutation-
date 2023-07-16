@@ -1,15 +1,15 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-export const datesApi = createApi({
-  reducerPath: "datesApi",
+export const checkListsApi = createApi({
+  reducerPath: "checkListsApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `${process.env.REACT_APP_SERVER_URL_LOCAL}/`,
   }),
   endpoints: (builder) => ({
-    getDates: builder.query({
-      query: () => {
+    getCheckLists: builder.query({
+      query: (id) => {
         return {
-          url: `dates`,
+          url: `checkLists?id=${id}`,
           method: "GET",
         };
       },
@@ -18,5 +18,5 @@ export const datesApi = createApi({
 });
 
 export const {
-  useGetDatesQuery,
-} = datesApi;
+  useGetCheckListsQuery,
+} = checkListsApi;

@@ -5,7 +5,7 @@ import { useGetDatesQuery } from "../../services/dates";
 const DateLastUpdate = () => {
     const { data, error, isLoading } = useGetDatesQuery();
     return <>
-        <p>Последнее обновление: {moment(data?.updateDate).format('DD-MM-YYYY hh:mm:ss')}</p>
+        <p>{moment(data?.updateDate).format('DD-MM-YYYY hh:mm:ss')}</p>
     </>
 }
 
