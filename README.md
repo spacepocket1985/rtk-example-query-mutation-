@@ -9,4 +9,5 @@ https://first-node-js-app-r.herokuapp.com/api-docs/#/
 Результат заливайте в виде pull request в этот репозиторий.
 
 ЦЕЛЬ: разобратсья с RTK (query и mutation).
+
 Ссылка на доку - https://redux-toolkit.js.org/rtk-query/usage/queries
