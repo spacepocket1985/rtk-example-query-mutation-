@@ -4,17 +4,11 @@ import moment from 'moment'
 const Activity = ({ dateLastActivity }) => {
 
     const countInactiveDays = moment().diff(moment(dateLastActivity), 'days')
-    const oneDays = 0;
-    const weekDays = 30;
-    const stoDays = 100;
+    const weekDays = 7;
 
-    return <Badge count={countInactiveDays || 1} >
+    return <Badge count={countInactiveDays <= weekDays ? 0 : countInactiveDays} >
         <Tag
-            color={countInactiveDays >= oneDays && countInactiveDays <= weekDays ? "cyan" :
-                countInactiveDays > weekDays && countInactiveDays <= stoDays ? "yellow" :
-                    "red"}
-
-        >
+            color={countInactiveDays >= weekDays ? "red" : "cyan"} >
             {moment(dateLastActivity).format('DD MMMM YYYY')}
         </ Tag >
     </Badge>
