@@ -4,16 +4,17 @@ const initialState = {
   value: "",
 };
 
-export const searchSlice = createSlice({
+export const textSlice = createSlice({
   name: "text",
   initialState,
   reducers: {
     enterText: (state, action) => {
+      console.log(action);
       state.value = action.payload;
     },
   },
 });
 
-export const { enterText } = searchSlice.actions;
+export const { enterText } = textSlice.actions;
 
-export default searchSlice.reducer;
+export default textSlice.reducer;

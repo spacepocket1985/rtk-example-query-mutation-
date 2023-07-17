@@ -1,14 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { studentsApi } from "../services/students";
-import { datesApi } from "../services/dates";
-import searchSlice from "./searchSlice";
-import studentsSlice from "./studentsSlice";
+import { toDoApi } from "../services/toDo";
+import textSlice from "./textSlice";
 
 export const store = configureStore({
   reducer: {
-    studentsSlice: studentsSlice,
-    searchText: searchSlice,
-    [studentsApi.reducerPath]: studentsApi.reducer,
-    [datesApi.reducerPath]: datesApi.reducer,
-  }
+    text: textSlice,
+    [toDoApi.reducerPath]: toDoApi.reducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(toDoApi.middleware),
 });

@@ -1,10 +1,11 @@
-
-import StudentsPage from "./pages/StudentsPage";
+import InputField from "./components/InputField";
+import Todos from "./components/Todos";
 
 function App() {
   return (
     <>
-      <StudentsPage />
+      <InputField />
+      <Todos />
     </>
   );
 }
