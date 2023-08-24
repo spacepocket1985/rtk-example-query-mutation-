@@ -1,13 +1,12 @@
-import { useGetToDosQuery } from "../../services/toDo";
-import Task from "../Task";
+import { useGetToDosQuery } from '../../services/toDo'
+import Task from '../Task'
 const Todos = () => {
-  const { data, error, isLoading } = useGetToDosQuery();
+  const { data } = useGetToDosQuery()
   return (
     <div>
-      {isLoading && <p>...loading</p>}
-      <ul>{data && data.map((item) => <Task key={item.ID} {...item} />)}</ul>
+      <ul>{data && data.map(item => <Task key={item.id} {...item} />)}</ul>
     </div>
-  );
-};
+  )
+}
 
-export default Todos;
+export default Todos

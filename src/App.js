@@ -1,13 +1,13 @@
-import InputField from "./components/InputField";
-import Todos from "./components/Todos";
+import InputField from './components/InputField'
+import Todos from './components/Todos'
 
-function App() {
+const App = () => {
   return (
     <>
       <InputField />
       <Todos />
     </>
-  );
+  )
 }
 
-export default App;
+export default App

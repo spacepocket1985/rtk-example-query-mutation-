@@ -1,20 +1,19 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  value: "",
-};
+  value: ''
+}
 
 export const textSlice = createSlice({
-  name: "text",
+  name: 'text',
   initialState,
   reducers: {
     enterText: (state, action) => {
-      console.log(action);
-      state.value = action.payload;
-    },
-  },
-});
+      state.value = action.payload
+    }
+  }
+})
 
-export const { enterText } = textSlice.actions;
+export const { enterText } = textSlice.actions
 
-export default textSlice.reducer;
+export default textSlice.reducer
