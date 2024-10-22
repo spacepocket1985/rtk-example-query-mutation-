@@ -1,5 +1,6 @@
-import InputField from './components/InputField'
-import Todos from './components/Todos'
+import "./App.css";
+import InputField from "./components/InputField";
+import Todos from "./components/Todos";
 
 const App = () => {
   return (
@@ -7,7 +8,7 @@ const App = () => {
       <InputField />
       <Todos />
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;

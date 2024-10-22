@@ -1,12 +1,23 @@
-import { useGetToDosQuery } from '../../services/toDo'
-import Task from '../Task'
+import { useGetToDosQuery } from "../../services/toDo";
+import Task from "../Task";
 const Todos = () => {
-  const { data } = useGetToDosQuery()
+  const { data, isFetching, error } = useGetToDosQuery();
+
   return (
     <div>
-      <ul>{data && data.map(item => <Task key={item.id} {...item} />)}</ul>
+      {isFetching && <p>Loading...</p>}
+      {error && (
+        <p>{`Error: ${error.status}. Error status: ${error.originalStatus}. `}</p>
+      )}
+      {!isFetching && !error && data && (
+        <ul>
+          {data.map((item) => (
+            <Task key={item.id} {...item} />
+          ))}
+        </ul>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default Todos
+export default Todos;
